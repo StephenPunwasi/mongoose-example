@@ -15,9 +15,27 @@ var quotes = [
   { author : 'Neale Donald Walsch', text : "You are afraid to die, and you're afraid to live. What a way to exist."}
 ];
 
-
+//RETURN ALL AS JSON
 app.get('/', function(req, res) {
   res.json(quotes);
 });
+
+
+app.get('/quote/:id', function(req, res) {
+  if(quotes.length <= req.params.id || req.params.id < 0) {
+    res.statusCode = 404;
+    return res.send('Error 404: No quote found');
+  }
+var q = quotes[req.params.id];
+  res.json(q);
+});
+
+//PULL RANDOM OBJECT
+app.get('/quote/random', function(req, res) {
+  var id = Math.floor(Math.random() * quotes.length);
+  var q = quotes[id];
+  res.json(q);
+});
+
 
 app.listen(3000);
