@@ -1,14 +1,14 @@
-var Quotes = require('../models/quotes');
+var Quote = require('../models/quotes');
 
 
 exports.findAllQuotes = function(req, res){
-  Quotes.find({}, function(err, quotes){
+  Quote.find({}, function(err, quotes){
       res.json(quotes);
   });
 }
 
 exports.addQuote = function(req, res){
-  var newQuote = new Quotes({
+  var newQuote = new Quote({
       author: req.body.author,
       quote: req.body.quote,
   });
@@ -18,10 +18,15 @@ exports.addQuote = function(req, res){
   });
 }
 
-// exports.getQuoteById = function(req, res){
-//   var q = quote[req.params.id];
-//     res.json(q);
-// }
+
+//QUERY BY MONGO ID
+exports.getQuoteById = function(req, res){
+  Quote.findById(req.params.id,
+  function(err, doc){
+      res.json(doc);
+  });
+}
+
 
 // app.get('/quote/:id', function(req, res) {
 //   if(quotes.length <= req.params.id || req.params.id < 0) {
