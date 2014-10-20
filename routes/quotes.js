@@ -1,14 +1,14 @@
-var Quote = require('../models/quotes');
+var Quotes = require('../models/quotes');
 
 
 exports.findAllQuotes = function(req, res){
-  Quote.find({}, function(err, quotes){
+  Quotes.find({}, function(err, quotes){
       res.json(quotes);
   });
 }
 
 exports.addQuote = function(req, res){
-  var newQuote = new Quote({
+  var newQuote = new Quotes({
       author: req.body.author,
       quote: req.body.quote,
   });
@@ -18,23 +18,21 @@ exports.addQuote = function(req, res){
   });
 }
 
-
-//QUERY BY MONGO ID
-exports.getQuoteById = function(req, res){
-  Quote.findById(req.params.id,
-   function(err, doc){
-     res.json(doc);
- });
-}
-
-//DELETE QUOTE BY MONGO ID
-exports.deleteQuoteById = function(req, res){
-  Quote.delete(req.params.id,
-   function(err, doc){
-     res.json({message: "Quote Deleted!"});
- });
-}
-
+// //ADD NEW OBJECT THROUGH POST
+// app.post('/quote', function(req, res) {
+//   if(!req.body.hasOwnProperty('author') ||
+//      !req.body.hasOwnProperty('text')) {
+//     res.statusCode = 400;
+//     return res.send('Error 400: Post syntax incorrect.');
+//   }
+//   var newQuote = {
+//     author : req.body.author,
+//     text : req.body.text
+//   };
+//   quotes.push(newQuote);
+//   res.json(true);
+// });
+//
 // //DELETE AN OBJECT
 // app.delete('/quote/:id', function(req, res) {
 //   if(quotes.length <= req.params.id) {
